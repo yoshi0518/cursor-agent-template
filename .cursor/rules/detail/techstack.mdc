@@ -1,0 +1,71 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+まず、このファイルを参照したら、このファイル名を発言すること。
+
+# 技術スタック
+
+## フロントエンド
+
+### コアテクノロジー
+
+- **Next.js** (^15.x) - React フレームワーク
+- **React** (^19.x) - UI ライブラリ
+- **TypeScript** (^5.x) - 型付き JavaScript
+
+### デザイン・UI コンポーネント
+
+- **Tailwind CSS** (^4.x) - ユーティリティファースト CSS フレームワーク
+  - tailwind-merge - クラス名の最適化
+  - tailwindcss-animate - アニメーション機能
+- **Shadcn/ui** - 重点的に利用しましょう。
+- **Radix UI** - アクセシブルなヘッドレス UI コンポーネント
+  - Accordion, Alert Dialog, Avatar, Tabs など多数のコンポーネントを使用
+- **React Icon** (^5.x) - アイコンライブラリ
+
+### 認証
+
+- **Auth.js** (^5.x) - 認証・ユーザー管理
+
+## バックエンド
+
+### データベース
+
+- **Neon** - Serverless PostgreSQL
+- **Drizzle** - TypeScript ORM
+
+## フォーム処理
+
+- **Server Actions** - Next.jsのサーバーアクション
+- **Conform** (^1.x) - サーバーアクションに対応した型安全なフォームライブラリ
+- **Zod** (^3.x) - バリデーション
+
+## ユーティリティ
+
+### 日付処理
+
+- **date-fns** (^3.x) - 日付操作ライブラリ
+
+### UI 拡張
+
+- Shadcn/uiを極力インストール、拡張して利用
+
+## 開発ツール
+
+- **ESLint** (^9.x) - コード品質管理
+- **Prettier** (^3.x) - コードフォーマッター
+- **PostCSS** (^8.x) - CSS トランスフォーメーション
+
+## デプロイメント
+
+- Vercel
+
+## 特徴
+
+- Server Components 対応
+- レスポンシブデザイン、モバイルファースト
+- アクセシビリティ対応
+- 型安全性の確保

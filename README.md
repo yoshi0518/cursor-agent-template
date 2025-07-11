@@ -44,3 +44,9 @@ $ pnpm db:generate --name="modify t_xxxxx"
 # DBへ反映
 $ pnpm db:migrate
 ```
+
+## Cursor Agent
+
+```bash
+
+```
