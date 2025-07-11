@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           pnpm-version: ${{ env.PNPM_VERSION }}
-      - run: pnpm nokutica.com lint
+      - run: pnpm lint
 
   format:
     needs: setup
@@ -44,7 +44,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           pnpm-version: ${{ env.PNPM_VERSION }}
-      - run: pnpm nokutica.com fmt
+      - run: pnpm fmt
 
   typecheck:
     needs: setup
@@ -55,4 +55,4 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           pnpm-version: ${{ env.PNPM_VERSION }}
-      - run: pnpm nokutica.com typecheck
+      - run: pnpm typecheck
