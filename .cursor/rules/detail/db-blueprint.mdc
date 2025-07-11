@@ -1,0 +1,142 @@
+---
+description:
+  Rules and guidelines for database design, implementation, and management practices to ensure consistent and
+  maintainable data architecture across the project.
+globs:
+alwaysApply: false
+---
+
+まず、このファイルを参照したら、このファイル名を発言すること。
+
+# データベース設計ルール
+
+## 概要
+
+このプロジェクトではNeon(PostgreSQL)を使用し、Drizzleで管理を行う。
+
+## スキーマ設計の基本ルール
+
+下記ルールに基づいたスキーマ設計を行うこと。
+
+スキーマ設計例:
+
+```
+import { pgSchema, serial, smallint, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+
+const schema = pgSchema('public');
+
+export const ContactTable = schema.table('t_contact', {
+  id: serial('id').primaryKey(),
+  inquiryType: smallint('inquiry_type').notNull(),
+  name: varchar('name', { length: 200 }).notNull(),
+  email: varchar('email', { length: 200 }).notNull(),
+  tel: varchar('tel', { length: 20 }).notNull(),
+  message: text('message').notNull(),
+  privacy: smallint('privacy').notNull(),
+  createdAt: timestamp('created_at').notNull(),
+  updatedAt: timestamp('updated_at').notNull(),
+});
+```
+
+### 命名規則
+
+- テーブル名はアッパーキャメルケース(`XxxxxTable`)、物理テーブル名はスネークケース(`t_xxxxx`)
+- フィールド名はローワーキャメルケース(`inquiryType`)、物理フィールド名はスネークケース(`inquiry_type`)
+- 主キーは`id`を利用
+- 作成・更新情報を保持するため下記フィールドを用意
+  - createdBy 作成者
+  - createdAt 作成日時
+  - updatedBy 更新者
+  - updatedAt 更新日時
+
+### データ型の使用
+
+- id: `serial`
+- 文字列: `varchar`(`length` で桁数を指定), `text`
+- 数値: `smallint`, `integer`
+- 真偽値: `boolean`
+- 日時: `timestamp`
+
+### インデックス設計
+
+- 検索頻度の高いフィールドにインデックスを設定
+- 外部キーには必ずインデックスを設定
+- 複合インデックスは検索パターンに基づいて設定
+- 主キーを設定する場合は `primaryKey()` を使用
+- 非Null制約が必要な場合は `notNull()` を使用
+- ユニーク制約が必要な場合は `unique()` を使用
+
+### バリデーション
+
+- 必須フィールドは `notNull()` を付けない
+- オプショナルフィールドは `notNull()` を付ける
+
+### マイグレーション管理
+
+- マイグレーションファイルは `src/db/migrations` に保存
+- マイグレーションファイル作成スクリプト実行時にどのテーブルの追加・変更・削除なのかがわかる名称を付ける
+  - `pnpm db:generate --name="create t_xxxxx`
+  - `pnpm db:generate --name="modify t_xxxxx`
+  - `pnpm db:generate --name="drop t_xxxxx`
+- スキーマ変更は必ずマイグレーションを通じて行う
+
+### セキュリティ考慮事項
+
+- 機密情報は暗号化して保存
+- ユーザー認証情報は安全に管理
+- アクセス権限の適切な設定
+- 入力値のバリデーション
+
+### パフォーマンス最適化
+
+- 適切なインデックス設定
+- N+1 問題の回避
+- クエリの最適化
+- キャッシュ戦略の検討
+
+### ドキュメント化
+
+- スキーマの変更履歴を記録
+- 複雑なリレーションの説明
+- インデックスの使用理由
+- マイグレーション手順
+
+## 開発フロー
+
+1. スキーマ設計
+   - 要件の整理
+   - モデル設計
+   - リレーション設計
+   - インデックス設計
+
+2. 実装
+   - マイグレーションファイルの作成
+   - テストデータの準備
+   - アプリケーションコードの実装
+
+3. テスト
+   - マイグレーションのテスト
+   - パフォーマンステスト
+   - セキュリティテスト
+
+4. デプロイ
+   - バックアップの作成
+   - マイグレーションの実行
+   - 動作確認
+
+## メンテナンス
+
+1. 定期的なレビュー
+   - スキーマの最適化
+   - インデックスの見直し
+   - パフォーマンスの確認
+
+2. バックアップ
+   - 定期バックアップの実施
+   - リストア手順の整備
+   - バックアップの検証
+
+3. モニタリング
+   - クエリパフォーマンスの監視
+   - エラーログの確認
+   - リソース使用状況の確認
