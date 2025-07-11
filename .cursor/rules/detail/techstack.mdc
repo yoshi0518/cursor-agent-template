@@ -24,6 +24,7 @@ alwaysApply: true
 - **Shadcn/ui** - 重点的に利用しましょう。
 - **Radix UI** - アクセシブルなヘッドレス UI コンポーネント
   - Accordion, Alert Dialog, Avatar, Tabs など多数のコンポーネントを使用
+- **TanStack Table** (^8.x) - 一覧表示
 - **React Icon** (^5.x) - アイコンライブラリ
 
 ### 認証
